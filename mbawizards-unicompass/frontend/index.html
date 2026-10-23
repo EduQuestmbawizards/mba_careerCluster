@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="/api/env.js" defer></script>
 
 <style>
   :root {
@@ -1794,15 +1795,27 @@ function prevStep() {
 }
 
 // ==========================================
-// BACKEND API CONFIGURATION (RENDER / LOCAL)
+// BACKEND API CONFIGURATION (FROM VERCEL ENV / RENDER)
 // ==========================================
-// When running locally, it talks to http://127.0.0.1:5050
-// When hosted on Vercel, paste your live Render Web Service URL below:
-const RENDER_BACKEND_URL = 'https://mbawizards-unicompass.onrender.com';
+// Automatically resolved from Vercel Environment Variables:
+// 1. process.env.BACKEND_URL or process.env.NEXT_PUBLIC_BACKEND_URL
+// 2. Or http://127.0.0.1:5050 when running on localhost
+const BUILD_INJECTED_URL = '__RENDER_BACKEND_URL__';
 
-const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-  ? 'http://127.0.0.1:5050'
-  : (window.BACKEND_API_URL || RENDER_BACKEND_URL);
+function getBackendBase() {
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    return 'http://127.0.0.1:5050';
+  }
+  if (window.ENV && window.ENV.BACKEND_URL && window.ENV.BACKEND_URL.trim()) {
+    return window.ENV.BACKEND_URL.trim().replace(/\/+$/, '');
+  }
+  if (BUILD_INJECTED_URL && !BUILD_INJECTED_URL.startsWith('__')) {
+    return BUILD_INJECTED_URL.trim().replace(/\/+$/, '');
+  }
+  return (window.BACKEND_API_URL || 'https://mbawizards-unicompass.onrender.com').replace(/\/+$/, '');
+}
+
+const API_BASE = getBackendBase();
 
 async function submitProfile() {
   const btn = document.getElementById('btnNext');
