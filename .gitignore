@@ -1,0 +1,26 @@
+# Environment files (Never commit API keys or passwords)
+.env
+.env.*
+.env.local
+!.env.example
+
+# Python cache & virtualenvs
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+env/
+.venv/
+
+# Local lead backups & logs
+*.log
+leads.jsonl
+*/leads.jsonl
+
+# IDE configuration
+.vscode/
+.idea/
+.DS_Store

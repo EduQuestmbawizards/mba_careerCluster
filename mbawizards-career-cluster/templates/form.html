@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MBAWizards - Student Form</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f4f6f9;
+      color: #1a1a2e;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    /* ---- Page Header ---- */
+    .page-header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .page-header .badge {
+      display: inline-block;
+      background: #fff3cd;
+      color: #b8860b;
+      border: 1px solid #f0c040;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .page-header h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: #0a1628;
+      margin-bottom: 8px;
+    }
+
+    .page-header h1 span {
+      color: #b8860b;
+    }
+
+    .page-header p {
+      font-size: 15px;
+      color: #666;
+    }
+
+    /* ---- Form Card ---- */
+    .form-card {
+      background: #ffffff;
+      max-width: 680px;
+      margin: 0 auto;
+      border-radius: 16px;
+      padding: 40px 44px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+      border-top: 4px solid #c9a84c;
+    }
+
+    /* ---- Section Title ---- */
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #b8860b;
+      border-bottom: 1px solid #f0e8d0;
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+      margin-top: 32px;
+    }
+
+    .section-title:first-child {
+      margin-top: 0;
+    }
+
+    /* ---- Grids ---- */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+    }
+
+    /* ---- Field ---- */
+    .field {
+      margin-bottom: 16px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #444;
+      margin-bottom: 6px;
+    }
+
+    .field label .optional {
+      font-weight: 400;
+      color: #aaa;
+      font-size: 11px;
+      margin-left: 4px;
+    }
+
+    .field label .required {
+      color: #c9a84c;
+      margin-left: 2px;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: #1a1a2e;
+      background: #fafafa;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: #c9a84c;
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.12);
+      background: #fff;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: #bbb;
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    /* ---- Education Level Pills ---- */
+    .edu-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .edu-pills input[type="radio"] {
+      display: none;
+    }
+
+    .edu-pills label {
+      padding: 8px 18px;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #666;
+      cursor: pointer;
+      background: #fafafa;
+      transition: all 0.2s;
+    }
+
+    .edu-pills input[type="radio"]:checked + label {
+      background: #fff8e6;
+      border-color: #c9a84c;
+      color: #b8860b;
+      font-weight: 600;
+    }
+
+    /* ---- Hidden field (used by JS) ---- */
+    .hidden {
+      display: none;
+    }
+
+    /* ---- Validation error ---- */
+    .error-msg {
+      display: none;
+      font-size: 12px;
+      color: #e53935;
+      margin-top: 5px;
+      font-weight: 500;
+    }
+
+    .field.has-error input,
+    .field.has-error select,
+    .field.has-error textarea {
+      border-color: #e53935 !important;
+      background: #fff8f8;
+    }
+
+    .field.has-error .error-msg {
+      display: block;
+    }
+
+    .edu-pills.pills-error label {
+      border-color: #e53935;
+    }
+
+    /* ---- Consent ---- */
+    .consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 24px;
+      margin-top: 8px;
+    }
+
+    .consent input[type="checkbox"] {
+      margin-top: 3px;
+      accent-color: #c9a84c;
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .consent span {
+      font-size: 13px;
+      color: #888;
+      line-height: 1.6;
+    }
+
+    /* ---- Submit Button ---- */
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: #c9a84c;
+      color: #0a1628;
+      border: none;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .submit-btn:hover {
+      background: #e0b84e;
+      transform: translateY(-1px);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    /* ---- Footer Contact ---- */
+    .footer-contact {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 12px;
+      color: #aaa;
+      line-height: 1.8;
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 560px) {
+      .form-card {
+        padding: 28px 20px;
+      }
+
+      .two-col,
+      .three-col {
+        grid-template-columns: 1fr;
+      }
+
+      .page-header h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="badge">✦ MBAWizards · AI Powered</div>
+    <h1>Start Your <span>Journey</span> With Us</h1>
+    <p>Fill in your details and our experts will build your personalised roadmap.</p>
+  </div>
+
+  <!-- Thank You Message (hidden by default) -->
+  <div class="form-card hidden" id="thankYouCard">
+    <div style="text-align: center; padding: 20px 0;">
+      <div style="font-size: 52px; margin-bottom: 16px;">🎉</div>
+      <h2 style="font-size: 26px; font-weight: 700; color: #0a1628; margin-bottom: 10px;">
+        Thank You for Submitting!
+      </h2>
+      <p style="font-size: 15px; color: #666; line-height: 1.7; max-width: 400px; margin: 0 auto 24px;">
+        We have received your details. Our expert advisors will get in touch with you shortly to help you build your personalised roadmap.
+      </p>
+      <div style="background: #fff8e6; border: 1px solid #f0c040; border-radius: 10px; padding: 16px 20px; display: inline-block; text-align: left;">
+        <p style="font-size: 13px; color: #b8860b; font-weight: 600; margin-bottom: 6px;">Need immediate help?</p>
+        <p style="font-size: 13px; color: #666; line-height: 1.8;">
+          📧 admissions@mbawizards.com <br />
+          📞 +91 99580 41888
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form Card -->
+  <div class="form-card" id="formCard">
+    <form id="mainForm" action="/generate" method="POST">
+
+      <!-- ── Personal Details ── -->
+      <div class="section-title">Personal Details</div>
+
+      <div class="two-col">
+        <div class="field">
+          <label>Full Name <span class="required">*</span></label>
+          <input type="text" name="full_name" placeholder="Arjun Sharma" required />
+          <span class="error-msg">Full Name is required.</span>
+        </div>
+        <div class="field">
+          <label>Age <span class="required">*</span></label>
+          <input type="number" name="age" placeholder="18" min="10" max="60" required />
+          <span class="error-msg">Please enter your age.</span>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="field">
+          <label>Phone Number <span class="required">*</span></label>
+          <input type="tel" name="phone" placeholder="+91 98765 43210" required />
+          <span class="error-msg">Phone number is required.</span>
+        </div>
+        <div class="field">
+          <label>Email Address <span class="required">*</span></label>
+          <input type="email" name="email" placeholder="arjun@email.com" required />
+          <span class="error-msg">Valid email is required.</span>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="field">
+          <label>Country <span class="required">*</span></label>
+          <input type="text" name="country" placeholder="India" required />
+          <span class="error-msg">Country is required.</span>
+        </div>
+        <div class="field">
+          <label>Current City <span class="required">*</span></label>
+          <input type="text" name="city" placeholder="New Delhi" required />
+          <span class="error-msg">City is required.</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Nationality <span class="required">*</span></label>
+        <input type="text" name="nationality" placeholder="Indian" required />
+        <span class="error-msg">Nationality is required.</span>
+      </div>
+
+      <!-- ── Academic Background ── -->
+      <div class="section-title">Academic Background</div>
+
+      <!-- Highest Qualification pills -->
+      <div class="field">
+        <label>Highest Qualification <span class="required">*</span></label>
+        <div class="edu-pills" id="eduPills">
+          <input type="radio" name="edu_level" id="lvl10"   value="10th"      required />
+          <label for="lvl10">10th</label>
+
+          <input type="radio" name="edu_level" id="lvl12"   value="12th" />
+          <label for="lvl12">12th</label>
+
+          <input type="radio" name="edu_level" id="lvlDip"  value="Diploma" />
+          <label for="lvlDip">Diploma</label>
+
+          <input type="radio" name="edu_level" id="lvlBach" value="Bachelor's" />
+          <label for="lvlBach">Bachelor's</label>
+
+          <input type="radio" name="edu_level" id="lvlMast" value="Master's" />
+          <label for="lvlMast">Master's</label>
+        </div>
+        <span class="error-msg" id="eduPillsError">Please select your highest qualification.</span>
+      </div>
+
+      <!-- Field of Study — only show for Diploma / Bachelor's / Master's -->
+      <div class="field hidden" id="fieldOfStudyWrapper">
+        <label>Field of Study <span class="required">*</span></label>
+        <input type="text" name="field_of_study" id="fieldOfStudy" placeholder="e.g. Computer Science" />
+        <span class="error-msg">Field of study is required.</span>
+      </div>
+
+      <!-- CGPA is always visible (relevant from 10th onward) -->
+      <div class="field">
+        <label>CGPA / Percentage <span class="required">*</span></label>
+        <input type="text" name="cgpa" placeholder="e.g. 8.5 or 85%" required />
+        <span class="error-msg">CGPA / Percentage is required.</span>
+      </div>
+
+      <!-- Year of Graduation — only show for Bachelor's / Master's -->
+      <div class="two-col">
+        <div class="field hidden" id="gradYearWrapper">
+          <label>Year of Graduation <span class="required">*</span></label>
+          <select name="grad_year" id="gradYear">
+            <option value="" disabled selected>Select year</option>
+            <!-- Years 2000 – 2030 filled by JS below -->
+          </select>
+          <span class="error-msg">Please select year of graduation.</span>
+        </div>
+
+        <div class="field">
+          <label>Gap Years</label>
+          <select name="gap_years">
+            <option value="0">No gap</option>
+            <option value="1">1 year</option>
+            <option value="2">2 years</option>
+            <option value="3">3 years</option>
+            <option value="4+">4+ years</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Work Experience <span class="optional">(if any)</span></label>
+        <textarea name="work_experience" placeholder="e.g. 1 year internship at XYZ as software developer..."></textarea>
+      </div>
+
+      <!-- ── Target & Test Scores ── -->
+      <div class="section-title">Target &amp; Test Scores</div>
+
+      <!-- Row 1: Target Country + Dream University -->
+      <div class="two-col">
+        <div class="field">
+          <label>Target Country <span class="required">*</span></label>
+          <select name="target_country" required>
+            <option value="" disabled selected>Select country</option>
+            <option>United States (USA)</option>
+            <option>United Kingdom (UK)</option>
+            <option>Canada</option>
+            <option>Australia</option>
+            <option>Germany</option>
+            <option>Netherlands</option>
+            <option>Singapore</option>
+            <option>Ireland</option>
+            <option>New Zealand</option>
+            <option>France</option>
+            <option>Japan</option>
+            <option>Other</option>
+          </select>
+          <span class="error-msg">Please select target country.</span>
+        </div>
+        <div class="field">
+          <label>Dream University <span class="required">*</span></label>
+          <input type="text" name="dream_university" placeholder="e.g. MIT, Oxford, NUS" required />
+          <span class="error-msg">Dream university is required.</span>
+        </div>
+      </div>
+
+      <!-- Row 2: What you want to pursue + Field of study (target) -->
+      <div class="two-col">
+        <div class="field">
+          <label>What do you want to pursue? <span class="required">*</span></label>
+          <input type="text" name="pursue" placeholder="Bachelor's / Master's / PhD" required />
+          <span class="error-msg">This field is required.</span>
+        </div>
+        <div class="field">
+          <label>Field of Study <span class="required">*</span></label>
+          <select name="target_field" required>
+            <option value="" disabled selected>Select field</option>
+            <option>Computer Science / IT</option>
+            <option>Artificial Intelligence / Data Science</option>
+            <option>Electrical / Electronics Engineering</option>
+            <option>Mechanical Engineering</option>
+            <option>Civil Engineering</option>
+            <option>Biotechnology / Life Sciences</option>
+            <option>Medicine / MBBS</option>
+            <option>Business Administration / MBA</option>
+            <option>Finance / Economics</option>
+            <option>Law</option>
+            <option>Architecture / Design</option>
+            <option>Arts / Humanities</option>
+            <option>Media / Journalism</option>
+            <option>Psychology</option>
+            <option>Education</option>
+            <option>Other</option>
+          </select>
+          <span class="error-msg">Please select a field of study.</span>
+        </div>
+      </div>
+
+      <!-- Test Scores -->
+      <div class="three-col">
+        <div class="field">
+          <label>SAT Score <span class="optional">optional</span></label>
+          <input type="text" name="sat_score" placeholder="e.g. 1450" />
+        </div>
+        <div class="field">
+          <label>GMAT Score <span class="optional">optional</span></label>
+          <input type="text" name="gmat_score" placeholder="e.g. 710" />
+        </div>
+        <div class="field">
+          <label>IELTS Score <span class="optional">optional</span></label>
+          <input type="text" name="ielts_score" placeholder="e.g. 7.5" />
+        </div>
+      </div>
+
+      <!-- Consent -->
+      <div class="consent">
+        <input type="checkbox" name="consent" id="consent" required />
+        <span>
+          I agree to be contacted by MBAWizards via phone, email, or WhatsApp.
+          My information will be kept confidential and used only for guidance purposes.
+        </span>
+        <span class="error-msg" id="consentError" style="display:none;">You must agree to continue.</span>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="submit-btn">Submit My Details →</button>
+
+      <!-- Contact -->
+      <div class="footer-contact">
+        Questions? &nbsp; 📧 admissions@mbawizards.com &nbsp;|&nbsp; 📞 +91 99580 41888
+      </div>
+
+    </form>
+  </div>
+
+  <script>
+    // ── Show Thank You on submit ──
+    
+    // ── Fill Year of Graduation options (2000 → 2030) ──
+    var gradSelect = document.getElementById('gradYear');
+    for (var y = 2000; y <= 2030; y++) {
+      var opt = document.createElement('option');
+      opt.value = y;
+      opt.textContent = y;
+      gradSelect.appendChild(opt);
+    }
+
+    // ── Conditional logic ──
+    var radios = document.querySelectorAll('input[name="edu_level"]');
+
+    var fieldOfStudyWrapper = document.getElementById('fieldOfStudyWrapper');
+    var fieldOfStudyInput   = document.getElementById('fieldOfStudy');
+    var gradYearWrapper     = document.getElementById('gradYearWrapper');
+    var gradYearSelect      = document.getElementById('gradYear');
+
+    // Levels that need "Field of Study"
+    var showFieldFor = ['Diploma', "Bachelor's", "Master's"];
+
+    // Levels that need "Year of Graduation"
+    var showGradFor  = ["Bachelor's", "Master's"];
+
+    function handleChange() {
+      var selected = document.querySelector('input[name="edu_level"]:checked');
+      if (!selected) return;
+
+      var val = selected.value;
+
+      // -- Field of Study --
+      if (showFieldFor.includes(val)) {
+        fieldOfStudyWrapper.classList.remove('hidden');
+        fieldOfStudyInput.required = true;
+      } else {
+        fieldOfStudyWrapper.classList.add('hidden');
+        fieldOfStudyInput.required = false;
+        fieldOfStudyInput.value = '';
+      }
+
+      // -- Year of Graduation --
+      if (showGradFor.includes(val)) {
+        gradYearWrapper.classList.remove('hidden');
+        gradYearSelect.required = true;
+      } else {
+        gradYearWrapper.classList.add('hidden');
+        gradYearSelect.required = false;
+        gradYearSelect.value = '';
+      }
+    }
+
+    // Attach listener to each radio
+    radios.forEach(function(radio) {
+      radio.addEventListener('change', handleChange);
+    });
+  </script>
+
+</body>
+</html>
