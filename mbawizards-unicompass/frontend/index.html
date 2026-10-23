@@ -1,0 +1,1955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MBAWizards UniCompass — Graduate Admissions & Career Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ink: #0f0e0b;
+    --parchment: #f7f4ef;
+    --gold: #c8a84b;
+    --gold-light: #e8d5a0;
+    --gold-dark: #8a6e28;
+    --warm-white: #fdfbf7;
+    --muted: #7c7567;
+    --border: #e0d9ce;
+    --border-dark: #c9c0b1;
+    --card-bg: #ffffff;
+    --shadow: 0 10px 40px rgba(15, 14, 11, 0.08);
+    --shadow-modal: 0 24px 80px rgba(15, 14, 11, 0.22);
+    --radius: 16px;
+    --radius-md: 12px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--parchment);
+    color: var(--ink);
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── TOP PORTAL ANNOUNCEMENT BAR ─── */
+  .portal-nav-bar {
+    width: 100%;
+    background: var(--warm-white);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12.5px;
+    flex-wrap: wrap;
+    gap: 12px;
+    position: relative;
+    z-index: 50;
+  }
+  .portal-nav-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: var(--muted);
+  }
+  .portal-nav-left a {
+    color: var(--gold-dark);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .portal-nav-left a:hover {
+    text-decoration: underline;
+  }
+  .portal-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .portal-nav-link {
+    color: var(--ink);
+    text-decoration: none;
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: #ffffff;
+    transition: all 0.2s ease;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .portal-nav-link:hover {
+    color: var(--gold-dark);
+    border-color: var(--gold);
+    background: var(--parchment);
+  }
+  .portal-nav-cta {
+    background: var(--gold);
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    border-color: var(--gold) !important;
+  }
+  .portal-nav-cta:hover {
+    background: var(--gold-dark) !important;
+    border-color: var(--gold-dark) !important;
+  }
+
+  /* ─── HEADER (FULL SCREEN WIDTH) ─── */
+  header {
+    width: 100%;
+    position: relative;
+    z-index: 10;
+    padding: 42px 32px 36px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    background: var(--warm-white);
+  }
+
+  .header-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+
+  .brand-logo-img {
+    height: 52px;
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+  }
+  .brand-logo-img:hover {
+    transform: scale(1.02);
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 14px;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    padding: 6px 18px;
+    border-radius: 100px;
+  }
+
+  .eyebrow .sparkle {
+    color: var(--gold);
+    animation: starPulse 2.8s ease-in-out infinite;
+  }
+  @keyframes starPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.25); opacity: 0.7; }
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(30px, 4.5vw, 52px);
+    font-weight: 700;
+    line-height: 1.18;
+    color: var(--ink);
+    width: 100%;
+    margin: 0 auto 14px;
+    letter-spacing: -0.01em;
+  }
+  h1 em {
+    color: var(--gold-dark);
+    font-style: italic;
+  }
+
+  .subtitle {
+    margin: 0 auto 24px;
+    font-size: 15.5px;
+    color: var(--muted);
+    line-height: 1.65;
+    width: 100%;
+  }
+
+  .pillar-pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .pillar-pill {
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--muted);
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 6px 16px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ─── SEARCH & QUERY WORKSPACE (FULL WIDTH) ─── */
+  .search-section {
+    width: 100%;
+    padding: 32px 32px 20px;
+    position: relative;
+    z-index: 10;
+  }
+
+  .search-wrap {
+    width: 100%;
+    display: flex;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .search-input-wrap {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 20px;
+    color: var(--gold);
+    font-size: 16px;
+    pointer-events: none;
+  }
+
+  #userInput {
+    width: 100%;
+    background: #ffffff;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px 16px 48px;
+    font-size: 15px;
+    color: var(--ink);
+    font-family: inherit;
+    outline: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(15, 14, 11, 0.03);
+  }
+  #userInput:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(200, 168, 75, 0.2);
+  }
+
+  .btn-generate {
+    background: var(--ink);
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    padding: 0 32px;
+    font-weight: 600;
+    font-size: 14.5px;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(15, 14, 11, 0.12);
+  }
+  .btn-generate:hover {
+    background: var(--gold-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(138, 110, 40, 0.25);
+  }
+  .btn-generate svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+  }
+
+  .chips {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .chip {
+    font-size: 12.5px;
+    color: var(--muted);
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 7px 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .chip:hover {
+    color: var(--ink);
+    background: var(--warm-white);
+    border-color: var(--gold);
+    transform: translateY(-1px);
+  }
+
+  /* ─── CANDIDATE PROFILE BANNER (FULL WIDTH) ─── */
+  .profile-banner {
+    width: 100%;
+    margin-bottom: 24px;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    box-shadow: var(--shadow);
+  }
+
+  .p-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--gold-dark);
+    color: #ffffff;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .p-info {
+    flex: 1;
+  }
+  .p-info strong {
+    font-size: 15.5px;
+    color: var(--ink);
+    display: block;
+    font-weight: 600;
+  }
+  .p-info small {
+    color: var(--muted);
+    font-size: 12.5px;
+  }
+
+  .p-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+  .p-tag {
+    font-size: 12px;
+    background: var(--parchment);
+    border: 1px solid var(--border);
+    color: var(--ink);
+    border-radius: 6px;
+    padding: 5px 12px;
+  }
+
+  .btn-edit-profile {
+    background: #ffffff;
+    border: 1.5px solid var(--border);
+    color: var(--ink);
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-edit-profile:hover {
+    border-color: var(--gold);
+    background: var(--warm-white);
+  }
+
+  /* ─── MAIN CONTENT (FULL WIDTH) ─── */
+  main {
+    flex: 1;
+    width: 100%;
+    padding: 10px 32px 60px;
+    position: relative;
+    z-index: 10;
+  }
+
+  .feature-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 24px 0 32px;
+  }
+
+  .feature-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 26px 24px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(15, 14, 11, 0.03);
+  }
+  .feature-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(15, 14, 11, 0.08);
+  }
+  .feature-card .fc-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+  }
+  .feature-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .feature-card p {
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ─── LOADING ANIMATION ─── */
+  .loading-wrap {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+    width: 100%;
+  }
+  .loading-wrap.active {
+    display: block;
+  }
+
+  .loader-ring {
+    width: 52px;
+    height: 52px;
+    border: 3px solid var(--border);
+    border-top-color: var(--gold-dark);
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+    margin: 0 auto 18px;
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .loading-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+    font-style: italic;
+  }
+  .loading-subtext {
+    font-size: 13.5px;
+    color: var(--muted);
+  }
+
+  /* ─── RESULT CARD (WARM PARCHMENT / IVORY) ─── */
+  #output {
+    width: 100%;
+  }
+
+  .result-card {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    width: 100%;
+    overflow: hidden;
+    animation: fadeUp 0.4s ease;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card-topbar {
+    background: var(--ink);
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .card-topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .card-topbar-icon {
+    font-size: 28px;
+  }
+  .card-topbar-text small {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .card-topbar-text strong {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    color: #ffffff;
+    font-style: italic;
+  }
+
+  .card-actions {
+    display: flex;
+    gap: 8px;
+  }
+  .btn-action {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-size: 12.5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .btn-action:hover {
+    background: var(--gold);
+    color: var(--ink);
+    border-color: var(--gold);
+  }
+
+  .card-body-content {
+    padding: 38px 36px;
+    color: #2b2721;
+    line-height: 1.8;
+    font-size: 15px;
+    width: 100%;
+  }
+
+  /* ─── STYLING AI-GENERATED REPORT ELEMENTS ─── */
+  .roadmap-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .report-header-banner {
+    width: 100%;
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    border-radius: 8px;
+    padding: 24px 28px;
+  }
+  .report-tag {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .report-header-banner h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    color: var(--ink);
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+  .report-lead {
+    font-size: 14.5px;
+    color: var(--muted);
+  }
+
+  .report-block {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 30px;
+    box-shadow: 0 2px 8px rgba(15, 14, 11, 0.03);
+  }
+  .report-block h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    color: var(--ink);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 12px;
+    font-weight: 700;
+  }
+
+  /* Resource Link Buttons */
+  .resource-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #ffffff;
+    color: var(--gold-dark) !important;
+    border: 1.5px solid var(--gold);
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  .resource-link-btn:hover {
+    background: var(--gold);
+    color: #ffffff !important;
+    border-color: var(--gold);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(200, 168, 75, 0.25);
+  }
+
+  /* Course Recommendation Cards */
+  .course-prescription-card {
+    width: 100%;
+    background: #fffdf8;
+    border: 1.5px solid var(--gold);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin: 20px 0;
+    box-shadow: 0 4px 16px rgba(200, 168, 75, 0.12);
+  }
+  .prescribed-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+  .course-prescription-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    color: var(--ink);
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+  .course-metrics-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    font-size: 13.5px;
+    color: #3d3830;
+  }
+
+  .secondary-course-card {
+    width: 100%;
+    background: var(--warm-white);
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-top: 14px;
+  }
+  .secondary-badge {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold-dark);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .secondary-course-card h5 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    color: var(--ink);
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+
+  /* Assessment Grid */
+  .assessment-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  .metric-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .metric-card strong {
+    display: block;
+    font-size: 13.5px;
+    color: var(--gold-dark);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .metric-card p {
+    font-size: 14px;
+    color: #3d3830;
+    line-height: 1.65;
+  }
+
+  .gap-analysis-box {
+    background: #fff8f8;
+    border: 1.5px solid #f2c7c7;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-top: 16px;
+  }
+  .gap-analysis-box h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: #991b1b;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+  .gap-analysis-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .gap-analysis-box ul li {
+    font-size: 14px;
+    color: #450a0a;
+    line-height: 1.6;
+    padding: 8px 12px;
+    background: #ffffff;
+    border-left: 3px solid #dc2626;
+    border-radius: 0 6px 6px 0;
+  }
+
+  /* Exam Decision Engine Table */
+  .exam-decision-box {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .exam-verdict-banner {
+    background: #fdfbf7;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold-dark);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+  }
+  .exam-verdict-banner strong {
+    color: var(--gold-dark);
+    font-size: 15px;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .exam-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 18px 0;
+    font-size: 13.5px;
+  }
+  .exam-table th {
+    background: var(--ink);
+    color: #ffffff;
+    padding: 12px 16px;
+    text-align: left;
+    font-family: 'Jost', sans-serif;
+    font-weight: 600;
+    font-size: 12.5px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .exam-table td {
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    color: #2b2721;
+    background: #ffffff;
+  }
+  .exam-table tr:nth-child(even) td {
+    background: var(--warm-white);
+  }
+
+  /* School Tier Cards */
+  .school-tiers-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .school-tier-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 24px;
+  }
+  .school-tier-card.reach { border-left: 4px solid #8b5cf6; }
+  .school-tier-card.target { border-left: 4px solid var(--gold); }
+  .school-tier-card.safe { border-left: 4px solid #10b981; }
+
+  .tier-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+  }
+  .tier-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .tier-odds {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    background: #ffffff;
+    border: 1px solid var(--border);
+    padding: 3px 10px;
+    border-radius: 100px;
+  }
+
+  /* Roadmap Grid */
+  .roadmap-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    margin: 20px 0;
+    width: 100%;
+  }
+  .roadmap-phase-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .roadmap-phase-card h5 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--gold-dark);
+    margin-bottom: 8px;
+  }
+  .roadmap-phase-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .roadmap-phase-card ul li {
+    font-size: 13.5px;
+    color: #3d3830;
+    line-height: 1.55;
+    padding-left: 14px;
+    position: relative;
+  }
+  .roadmap-phase-card ul li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 10px;
+    top: 4px;
+  }
+
+  /* CTA Banner */
+  .cta-banner {
+    width: 100%;
+    background: var(--ink);
+    border-radius: 12px;
+    padding: 32px;
+    text-align: center;
+    color: #ffffff;
+    margin-top: 24px;
+  }
+  .cta-banner h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    color: #ffffff;
+    margin-bottom: 8px;
+    font-style: italic;
+  }
+  .cta-banner p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    margin-bottom: 20px;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cta-contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .card-footer {
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--warm-white);
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .card-footer-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .card-footer-brand span {
+    color: var(--gold-dark);
+  }
+
+  /* ══════════════════════════════════════
+     INTAKE FORM MODAL (NATURAL HEIGHT, PROPER FIELDS)
+  ══════════════════════════════════════ */
+  #intakeOverlay {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 14, 11, 0.68);
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    backdrop-filter: blur(5px);
+    overflow-y: auto;
+  }
+
+  .intake-modal {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 860px;
+    /* NO FIXED HEIGHT - Natural content flow with safety max-height for smaller screens */
+    height: auto;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-modal);
+    overflow: hidden;
+    animation: modalIn 0.35s ease;
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .intake-top {
+    width: 100%;
+    background: var(--ink);
+    padding: 24px 32px 20px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .intake-logo-preview {
+    height: 42px;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 8px;
+  }
+  .intake-top .badge {
+    font-size: 10.5px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .intake-top h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+    font-style: italic;
+    margin-bottom: 4px;
+  }
+  .intake-top p {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  /* Progress Wrap */
+  .progress-wrap {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 16px 24px;
+    background: #ffffff;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .prog-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .prog-dot {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    transition: all 0.3s;
+  }
+  .prog-dot.active {
+    border-color: var(--gold);
+    background: var(--gold);
+    color: #ffffff;
+    box-shadow: 0 2px 10px rgba(200, 168, 75, 0.3);
+  }
+  .prog-dot.done {
+    border-color: var(--gold-dark);
+    background: var(--gold-dark);
+    color: #ffffff;
+  }
+  .prog-label {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .prog-label.active {
+    color: var(--gold-dark);
+  }
+  .prog-line {
+    width: 50px;
+    height: 2px;
+    background: var(--border);
+    margin: 0 8px 14px;
+    flex-shrink: 0;
+    transition: background 0.3s;
+  }
+  .prog-line.done {
+    background: var(--gold-dark);
+  }
+
+  /* Intake Body - NO FIXED HEIGHT */
+  .intake-body {
+    width: 100%;
+    padding: 28px 32px;
+    overflow-y: auto;
+    flex: 1 1 auto;
+    background: var(--warm-white);
+  }
+
+  .form-step {
+    display: none;
+    animation: fadeIn 0.3s ease;
+    width: 100%;
+  }
+  .form-step.visible {
+    display: block;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .step-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .step-sub {
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-bottom: 22px;
+  }
+
+  /* Proper Form Fields & Grids */
+  .fg {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .f {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    width: 100%;
+  }
+  .f.s2 {
+    grid-column: span 2;
+  }
+
+  .f label {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #2b2721;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+  }
+  .f label .req-star {
+    color: #dc2626;
+    font-size: 11.5px;
+    font-weight: 700;
+    background: #fee2e2;
+    padding: 2px 7px;
+    border-radius: 4px;
+    margin-left: 8px;
+    letter-spacing: 0.02em;
+  }
+  .f label .opt {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 400;
+    margin-left: 6px;
+  }
+
+  .f input, .f select, .f textarea {
+    width: 100%;
+    background: #ffffff;
+    border: 1.5px solid #d8d0c4;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: var(--ink);
+    font-family: 'Jost', sans-serif;
+    outline: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(15, 14, 11, 0.04);
+  }
+  .f input::placeholder, .f textarea::placeholder {
+    color: #9c9486;
+    font-weight: 400;
+  }
+  .f input:focus, .f select:focus, .f textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(200, 168, 75, 0.2);
+    background: #ffffff;
+  }
+  .f input.err, .f select.err {
+    border-color: #dc2626;
+    background: #fff8f8;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+  }
+  .f textarea {
+    min-height: 85px;
+    resize: vertical;
+    line-height: 1.6;
+  }
+
+  /* Radio Buttons Grid */
+  .radio-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .radio-card {
+    background: #ffffff;
+    border: 1.5px solid #d8d0c4;
+    border-radius: 10px;
+    padding: 12px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.2s;
+  }
+  .radio-card:hover {
+    border-color: var(--gold);
+    background: var(--parchment);
+  }
+  .radio-card input {
+    accent-color: var(--gold-dark);
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+  }
+  .radio-card label {
+    font-size: 13.5px;
+    color: var(--ink);
+    cursor: pointer;
+    font-weight: 500;
+  }
+
+  /* Intake Foot */
+  .intake-foot {
+    width: 100%;
+    padding: 18px 32px;
+    background: var(--warm-white);
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+  .btn-back {
+    background: transparent;
+    border: 1.5px solid #d8d0c4;
+    color: var(--muted);
+    border-radius: 10px;
+    padding: 10px 22px;
+    font-size: 13.5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .btn-back:hover {
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+
+  .step-ct {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+
+  .btn-next {
+    background: var(--ink);
+    color: #ffffff;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 28px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+    box-shadow: 0 4px 14px rgba(15, 14, 11, 0.15);
+  }
+  .btn-next:hover {
+    background: var(--gold-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(138, 110, 40, 0.3);
+  }
+
+  /* ─── RESPONSIVE RULES ─── */
+  @media (max-width: 768px) {
+    .portal-nav-bar { padding: 8px 16px; flex-direction: column; align-items: flex-start; }
+    .portal-nav-links { width: 100%; justify-content: flex-start; }
+    header { padding: 28px 16px 24px; }
+    .search-section { padding: 20px 16px; }
+    main { padding: 10px 16px 40px; }
+    .fg { grid-template-columns: 1fr; gap: 14px; }
+    .f.s2 { grid-column: span 1; }
+    .assessment-grid, .roadmap-grid, .radio-grid, .feature-grid { grid-template-columns: 1fr; }
+    .search-wrap { flex-direction: column; }
+    .btn-generate { width: 100%; justify-content: center; padding: 14px; }
+    #intakeOverlay { padding: 12px; }
+    .intake-body { padding: 20px 18px; }
+    .intake-foot { padding: 14px 18px; }
+    .prog-line { width: 20px; margin: 0 4px 14px; }
+    .prog-label { display: none; }
+    .cta-contact-links { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     TOP MBAWIZARDS PORTAL NAVIGATION
+══════════════════════════════════════ -->
+<nav class="portal-nav-bar" aria-label="MBAWizards Ecosystem">
+  <div class="portal-nav-left">
+    <span>Official Portal: <a href="https://www.mbawizards.co.in/" target="_blank">www.mbawizards.co.in ↗</a></span>
+    <span>📞 +91-9958041888</span>
+  </div>
+  <div class="portal-nav-links">
+    <a href="https://www.mbawizards.co.in/gmat-coaching" target="_blank" class="portal-nav-link">🎯 GMAT Focus Prep</a>
+    <a href="https://www.mbawizards.co.in/cat" target="_blank" class="portal-nav-link">🏆 CAT Coaching (IIMs)</a>
+    <a href="https://www.mbawizards.co.in/gre-coaching-classes" target="_blank" class="portal-nav-link">📘 GRE Classes</a>
+    <a href="https://www.mbawizards.co.in/gmat-cat-coaching" target="_blank" class="portal-nav-link">⚖️ GMAT+CAT Track</a>
+    <a href="https://www.mbawizards.co.in/premium-university-consulting-packages" target="_blank" class="portal-nav-link">🏛️ Admissions Consulting</a>
+    <a href="https://www.mbawizards.co.in/contact-us" target="_blank" class="portal-nav-link portal-nav-cta">Book Demo ↗</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════
+     INTAKE FORM MODAL (5 STEPS - NATURAL HEIGHT)
+══════════════════════════════════════ -->
+<div id="intakeOverlay">
+  <div class="intake-modal">
+
+    <div class="intake-top">
+      <a href="https://www.mbawizards.co.in/" target="_blank">
+        <img src="/static/images/mbawizards-logo.svg" alt="MBAWizards Logo" class="intake-logo-preview" onerror="this.src='/static/images/mbawizards-logo.png'">
+      </a>
+      <span class="badge">✦ MBAWizards UniCompass Intelligence ✦</span>
+      <h2>Graduate Admissions Intake Profile</h2>
+      <p>Configure your candidate parameters so our AI engine can architect your admissions strategy.</p>
+    </div>
+
+    <!-- Progress Indicator -->
+    <div class="progress-wrap" id="progressWrap">
+      <div class="prog-step">
+        <div class="prog-dot active" id="pd1">1</div>
+        <div class="prog-label active" id="pl1">Personal</div>
+      </div>
+      <div class="prog-line" id="pline1"></div>
+      <div class="prog-step">
+        <div class="prog-dot" id="pd2">2</div>
+        <div class="prog-label" id="pl2">Education</div>
+      </div>
+      <div class="prog-line" id="pline2"></div>
+      <div class="prog-step">
+        <div class="prog-dot" id="pd3">3</div>
+        <div class="prog-label" id="pl3">Experience</div>
+      </div>
+      <div class="prog-line" id="pline3"></div>
+      <div class="prog-step">
+        <div class="prog-dot" id="pd4">4</div>
+        <div class="prog-label" id="pl4">Course &amp; Exam</div>
+      </div>
+      <div class="prog-line" id="pline4"></div>
+      <div class="prog-step">
+        <div class="prog-dot" id="pd5">5</div>
+        <div class="prog-label" id="pl5">Schools</div>
+      </div>
+    </div>
+
+    <div class="intake-body" id="intakeBody">
+
+      <!-- STEP 1: Personal Details (NAME, PHONE, CITY, EMAIL ARE STRICTLY REQUIRED) -->
+      <div class="form-step visible" id="fs1">
+        <p class="step-heading">Personal Information</p>
+        <p class="step-sub">Contact coordinates required for profile archiving and counselor briefing.</p>
+        <div class="fg">
+          <div class="f s2">
+            <label for="fullName">Full Name <span class="req-star">* Required</span></label>
+            <input type="text" id="fullName" placeholder="e.g. Aryan Sharma" required>
+          </div>
+          <div class="f">
+            <label for="phone">Phone / WhatsApp Number <span class="req-star">* Required</span></label>
+            <input type="tel" id="phone" placeholder="+91 99580 41888" required>
+          </div>
+          <div class="f">
+            <label for="email">Email Address <span class="req-star">* Required</span></label>
+            <input type="email" id="email" placeholder="you@example.com" required>
+          </div>
+          <div class="f">
+            <label for="city">Current City <span class="req-star">* Required</span></label>
+            <input type="text" id="city" placeholder="e.g. Mumbai, New Delhi, Bengaluru" required>
+          </div>
+          <div class="f">
+            <label for="country">Country of Residence</label>
+            <input type="text" id="country" placeholder="e.g. India" value="India">
+          </div>
+          <div class="f s2">
+            <label for="nationality">Nationality</label>
+            <input type="text" id="nationality" placeholder="e.g. Indian" value="Indian">
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2: Pillar 1 - Academic History -->
+      <div class="form-step" id="fs2">
+        <p class="step-heading">Pillar 1: Applicant Academic History</p>
+        <p class="step-sub">Evaluating undergraduate pedigree, quantitative rigor, and GPA caliber.</p>
+        <div class="fg">
+          <div class="f s2">
+            <label>Current Education Level</label>
+            <div class="radio-grid">
+              <div class="radio-card"><input type="radio" name="edu" id="e_grad" value="Undergraduate (Final Year)"><label for="e_grad">Final Year Undergrad</label></div>
+              <div class="radio-card"><input type="radio" name="edu" id="e_bac" value="Bachelor's Degree Holder" checked><label for="e_bac">Bachelor's Degree</label></div>
+              <div class="radio-card"><input type="radio" name="edu" id="e_mas" value="Master's / Postgrad"><label for="e_mas">Master's / Postgrad</label></div>
+              <div class="radio-card"><input type="radio" name="edu" id="e_pro" value="Working Professional"><label for="e_pro">Working Professional</label></div>
+            </div>
+          </div>
+          <div class="f s2">
+            <label for="fos">Undergraduate Degree &amp; Major</label>
+            <input type="text" id="fos" placeholder="e.g. B.Tech in Computer Science, B.Com (Hons), Economics">
+          </div>
+          <div class="f">
+            <label for="collegeTier">College / University Tier</label>
+            <select id="collegeTier">
+              <option value="Tier 1 (IIT, NIT, BITS, SRCC, St. Stephens, Ivy Equivalent)">Tier 1 / Top National Institution</option>
+              <option value="Tier 2 (Reputed State / Private University)" selected>Tier 2 / Reputed University</option>
+              <option value="Tier 3 / Regional University">Tier 3 / Regional University</option>
+              <option value="International Accredited University">International University</option>
+            </select>
+          </div>
+          <div class="f">
+            <label for="cgpa">CGPA / Percentage</label>
+            <input type="text" id="cgpa" placeholder="e.g. 8.4/10 or 82% or 3.6/4.0">
+          </div>
+          <div class="f">
+            <label for="grady">Year of Graduation</label>
+            <input type="number" id="grady" placeholder="e.g. 2024" min="2010" max="2028">
+          </div>
+          <div class="f">
+            <label for="academicHonors">Academic Honors / Research <span class="opt">optional</span></label>
+            <input type="text" id="academicHonors" placeholder="e.g. Dean's List, 1 Published IEEE Paper">
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3: Pillar 1 - Professional Experience & Skills -->
+      <div class="form-step" id="fs3">
+        <p class="step-heading">Pillar 1: Work Experience &amp; Core Skills</p>
+        <p class="step-sub">Admissions committees evaluate impact, promotions, and leadership scope.</p>
+        <div class="fg">
+          <div class="f">
+            <label for="workexp">Full-Time Work Experience</label>
+            <select id="workexp">
+              <option value="0 years (Fresh Graduate / College Senior)">0 years (Fresh Graduate)</option>
+              <option value="1-2 years">1 - 2 years</option>
+              <option value="2-4 years" selected>2 - 4 years</option>
+              <option value="4-6 years">4 - 6 years</option>
+              <option value="6-8 years">6 - 8 years</option>
+              <option value="8+ years">8+ years</option>
+            </select>
+          </div>
+          <div class="f">
+            <label for="currentIndustry">Current Industry Sector</label>
+            <input type="text" id="currentIndustry" placeholder="e.g. Technology / SaaS, Management Consulting, FinTech, FMCG">
+          </div>
+          <div class="f s2">
+            <label for="currentRole">Current Job Title &amp; Company</label>
+            <input type="text" id="currentRole" placeholder="e.g. Product Analyst at Deloitte, Software Engineer at Microsoft">
+          </div>
+          <div class="f s2">
+            <label for="keySkills">Key Skills &amp; Functional Expertise</label>
+            <input type="text" id="keySkills" placeholder="e.g. Financial Modeling, Python, SQL, Product Management, Agile Leadership">
+          </div>
+          <div class="f s2">
+            <label for="targetRole">Post-Grad Target Role &amp; Industry (Interests)</label>
+            <input type="text" id="targetRole" placeholder="e.g. Management Consultant at McKinsey/BCG, Senior PM in Tech, Venture Capital">
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4: Pillar 2 - Course Selection & Exam Engine (GMAT vs CAT vs GRE) -->
+      <div class="form-step" id="fs4">
+        <p class="step-heading">Pillar 2: Course Recommendation &amp; Exam Engine</p>
+        <p class="step-sub">Prescribe the right course for you and decide between GMAT, CAT, and GRE.</p>
+        <div class="fg">
+          <div class="f s2">
+            <label for="degreePreference">Target Degree Track / Course Preference</label>
+            <select id="degreePreference">
+              <option value="Advise Me on Best Course (MBA vs Specialised Master's vs Work Exp)" selected>★ Recommend Best Course for My Profile (AI Course Recommendation)</option>
+              <option value="Full-Time MBA (US 2-Year / European 1-Year)">Full-Time MBA (US 2-Year / European 1-Year)</option>
+              <option value="Tech MBA / Dual Degree (e.g., MBA + MS CS)">Tech MBA / Dual Degree</option>
+              <option value="Specialised Master's: MiM (Masters in Management)">Specialised Master's: MiM (Masters in Management)</option>
+              <option value="Specialised Master's: MS in Business Analytics / Data Science">Specialised Master's: MS in Business Analytics / Data Science</option>
+              <option value="Specialised Master's: MS in Finance / Financial Engineering">Specialised Master's: MS in Finance / Financial Engineering</option>
+              <option value="Executive MBA / Part-time MBA">Executive MBA / Part-time MBA</option>
+              <option value="Indian 2-Year MBA / PGP (IIMs / FMS / SPJIMR)">Indian 2-Year MBA / PGP (IIMs / FMS / SPJIMR)</option>
+            </select>
+          </div>
+          <div class="f s2">
+            <label for="examGuidance">Standardized Exam Strategy Needed</label>
+            <select id="examGuidance">
+              <option value="Advise me whether to take GMAT, CAT, or GRE" selected>★ Advise me whether to take GMAT, CAT, or GRE for maximum admit odds</option>
+              <option value="Comparing GMAT Focus vs CAT (Global vs Indian IIMs)">Help me decide between GMAT Focus and CAT (Global vs Indian IIMs)</option>
+              <option value="Comparing GMAT Focus vs GRE">Help me decide between GMAT Focus and GRE</option>
+              <option value="Planning to take GMAT Focus Edition">Planning to take GMAT Focus Edition</option>
+              <option value="Planning to take CAT">Planning to take CAT</option>
+              <option value="Planning to take GRE">Planning to take GRE</option>
+            </select>
+          </div>
+          <div class="f">
+            <label for="gmat">GMAT / GMAT Focus Score <span class="opt">if taken</span></label>
+            <input type="text" id="gmat" placeholder="e.g. 685 Focus or 720">
+          </div>
+          <div class="f">
+            <label for="cat">CAT Percentile <span class="opt">if taken</span></label>
+            <input type="text" id="cat" placeholder="e.g. 98.4 %ile">
+          </div>
+          <div class="f">
+            <label for="gre">GRE Score <span class="opt">if taken</span></label>
+            <input type="number" id="gre" placeholder="e.g. 326" min="260" max="340">
+          </div>
+          <div class="f">
+            <label for="ielts">IELTS / TOEFL Score <span class="opt">if taken</span></label>
+            <input type="text" id="ielts" placeholder="e.g. IELTS 7.5 or TOEFL 108">
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 5: Pillar 3 & 4 - University Matching & Execution -->
+      <div class="form-step" id="fs5">
+        <p class="step-heading">Pillar 3 &amp; 4: University Matching &amp; Goals</p>
+        <p class="step-sub">Eligibility, tuition costs, scholarships, and execution priorities.</p>
+        <div class="fg">
+          <div class="f s2">
+            <label for="targetCountry">Target Country / Geography</label>
+            <select id="targetCountry">
+              <option value="United States (US M7 / Top 20)">🇺🇸 United States (M7 &amp; Top 20 B-Schools)</option>
+              <option value="Europe / United Kingdom (INSEAD, LBS, Oxford, HEC Paris)">🇪🇺 Europe &amp; UK (INSEAD, LBS, Oxford, Cambridge, HEC)</option>
+              <option value="India (IIM A/B/C, ISB PGP, FMS, SPJIMR)">🇮🇳 India (IIM A/B/C, ISB PGP, FMS, SPJIMR)</option>
+              <option value="Asia / Singapore (NUS, NTU, INSEAD Singapore)">🇸🇬 Singapore &amp; Asia (NUS, NTU, INSEAD Asia)</option>
+              <option value="Canada (Rotman, Ivey, McGill)">🇨🇦 Canada (Rotman, Ivey, McGill)</option>
+              <option value="Multiple Global Geographies">🌍 Multiple Global Geographies</option>
+            </select>
+          </div>
+          <div class="f s2">
+            <label for="dreamUniv">Dream Universities / Business Schools</label>
+            <input type="text" id="dreamUniv" placeholder="e.g. Harvard Business School, Stanford GSB, INSEAD, Wharton, IIM Ahmedabad, ISB">
+          </div>
+          <div class="f">
+            <label for="fundingNeed">Scholarship / Funding Need</label>
+            <select id="fundingNeed">
+              <option value="High Need (Need 50-100% Merit Fellowship/Scholarship)">High (Need 50-100% Scholarship)</option>
+              <option value="Moderate (25-50% Scholarship Desired)" selected>Moderate (25-50% Scholarship Desired)</option>
+              <option value="Self-Funded / Company Sponsored">Self-Funded / Company Sponsored</option>
+            </select>
+          </div>
+          <div class="f">
+            <label for="targetIntake">Target Application Intake</label>
+            <select id="targetIntake">
+              <option value="Fall 2027 (Round 1 / Round 2)">Fall 2027 (Round 1 / Round 2)</option>
+              <option value="Fall 2028">Fall 2028</option>
+              <option value="Immediate Upcoming Round">Immediate Upcoming Round</option>
+            </select>
+          </div>
+          <div class="f s2">
+            <label for="notes">Key Profile Positioning Challenges or Specific Questions <span class="opt">optional</span></label>
+            <textarea id="notes" placeholder="e.g. Should I take CAT or GMAT? Want advice on MBA vs MSBA. Non-traditional background, low undergrad GPA mitigation..."></textarea>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /intake-body -->
+
+    <div class="intake-foot">
+      <button class="btn-back" id="btnBack" onclick="prevStep()">← Back</button>
+      <span class="step-ct" id="stepCt">Step 1 of 5</span>
+      <button class="btn-next" id="btnNext" onclick="nextStep()">Continue →</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     MAIN WORKSPACE (FULL SCREEN WIDTH)
+══════════════════════════════════════ -->
+<div id="mainApp" style="width:100%;">
+
+  <header>
+    <div class="header-brand">
+      <a href="https://www.mbawizards.co.in/" target="_blank">
+        <img src="/static/images/mbawizards-logo.svg" alt="MBAWizards Logo" class="brand-logo-img" onerror="this.src='/static/images/mbawizards-logo.png'">
+      </a>
+    </div>
+    <div class="eyebrow"><span class="sparkle">✦</span> MBAWizards UniCompass <span class="sparkle">✦</span></div>
+    <h1>Graduate Admissions &amp;<br><em>Career Intelligence Platform</em></h1>
+    <p class="subtitle">Personalized course recommendations, GMAT vs CAT vs GRE diagnostic decisioning, and elite business school roadmaps engineered for MBA and Master's candidates.</p>
+
+    <div class="pillar-pills">
+      <span class="pillar-pill">✦ 1. Applicant Assessment</span>
+      <span class="pillar-pill">✦ 2. Course &amp; Specialization Recommendation</span>
+      <span class="pillar-pill">✦ 3. GMAT vs CAT vs GRE Exam Engine</span>
+      <span class="pillar-pill">✦ 4. University &amp; Scholarship Matching</span>
+      <span class="pillar-pill">✦ 5. Personalised Application Roadmap</span>
+    </div>
+  </header>
+
+  <div class="search-section">
+    <!-- Candidate Active Profile Banner -->
+    <div class="profile-banner" id="profileBanner" style="display:none;"></div>
+
+    <div class="search-wrap">
+      <div class="search-input-wrap">
+        <span class="search-icon">✦</span>
+        <input type="text" id="userInput" placeholder="e.g. Which course should I take, and should I prepare for GMAT or CAT?">
+      </div>
+      <button class="btn-generate" onclick="generateRoadmap()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Generate Roadmap
+      </button>
+    </div>
+
+    <div class="chips">
+      <span class="chip" onclick="fillChip('Which course and specialization should I pursue based on my profile?')">🎓 Which Course Should I Take?</span>
+      <span class="chip" onclick="fillChip('GMAT vs CAT vs GRE: Which exam should I take for top business schools?')">📝 GMAT vs CAT vs GRE Advice</span>
+      <span class="chip" onclick="fillChip('CAT for IIMs vs GMAT for Global MBA & ISB: Comparative strategy')">🇮🇳 CAT (IIMs) vs GMAT (Global/ISB)</span>
+      <span class="chip" onclick="fillChip('Should I pursue an MBA or MS in Business Analytics / Data Science?')">🚀 MBA vs MS in Business Analytics</span>
+      <span class="chip" onclick="fillChip('Harvard Business School vs Stanford GSB MBA admissions strategy')">🏛️ Harvard Business School MBA</span>
+      <span class="chip" onclick="fillChip('Best MBA specialization for Software Engineers switching to Product Management')">💼 MBA Specialization for Tech</span>
+    </div>
+  </div>
+
+  <main>
+    <div class="feature-grid" id="featureGrid">
+      <div class="feature-card">
+        <div class="fc-icon">🎯</div>
+        <h4>Course &amp; Specialization</h4>
+        <p>Prescribes the exact high-ROI program (MBA vs MSBA vs MiM vs MS Finance) aligned with your background.</p>
+        <div style="margin-top:14px;"><a href="https://www.mbawizards.co.in/mba-wizards-methodology" target="_blank" class="resource-link-btn" style="font-size:12px;">Our Methodology ↗</a></div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">📝</div>
+        <h4>GMAT vs CAT vs GRE</h4>
+        <p>Comprehensive exam diagnostic: analyzes your strengths, target schools, cutoffs, and ideal test sprint.</p>
+        <div style="margin-top:14px;"><a href="https://www.mbawizards.co.in/gmat-coaching" target="_blank" class="resource-link-btn" style="font-size:12px;">GMAT &amp; CAT Prep ↗</a></div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">🏛️</div>
+        <h4>Admissions Roadmap</h4>
+        <p>Tiered Dream/Target/Safe school matching, fellowship odds, essay narrative hooks, and interview tactics.</p>
+        <div style="margin-top:14px;"><a href="https://www.mbawizards.co.in/premium-university-consulting-packages" target="_blank" class="resource-link-btn" style="font-size:12px;">Admissions Consulting ↗</a></div>
+      </div>
+    </div>
+
+    <!-- Loading Ring -->
+    <div class="loading-wrap" id="loadingWrap">
+      <div class="loader-ring"></div>
+      <p class="loading-text" id="loadingHeadline">Architecting Admissions Intelligence</p>
+      <p class="loading-subtext" id="loadingSubtext">Benchmarking profile metrics against M7 &amp; top-tier global admissions pools...</p>
+    </div>
+
+    <!-- Output Roadmap Card -->
+    <div id="output"></div>
+  </main>
+
+</div>
+
+<script>
+/* ─── INTAKE FORM LOGIC (5 STEPS - NATURAL HEIGHT) ─── */
+let step = 1;
+const TOTAL_STEPS = 5;
+let profile = {};
+
+const loadingMessages = [
+  { head: "Evaluating Academic & Quantitative Foundation", sub: "Calibrating undergraduate GPA, institutional pedigree, and technical rigor..." },
+  { head: "Prescribing Optimal Course & Specialization", sub: "Analyzing career velocity to recommend MBA vs MiM vs MSBA vs MS Finance..." },
+  { head: "Evaluating GMAT vs CAT vs GRE Exam Fit", sub: "Benchmarking test formats, quant/verbal strengths, and target school cutoffs..." },
+  { head: "Matching Elite Business Schools & Scholarship Odds", sub: "Cross-referencing eligibility cutoffs, tuition budgets, and merit fellowships..." },
+  { head: "Architecting Personalised Application Roadmap", sub: "Drafting GMAT/CAT/GRE sprint schedule, essay narrative arcs, and interview strategy..." }
+];
+let loadInterval = null;
+
+function syncProgress() {
+  for (let i = 1; i <= TOTAL_STEPS; i++) {
+    const dot = document.getElementById('pd' + i);
+    const lbl = document.getElementById('pl' + i);
+    dot.className = 'prog-dot';
+    lbl.className = 'prog-label';
+    if (i < step) {
+      dot.classList.add('done');
+      dot.textContent = '✓';
+    } else if (i === step) {
+      dot.classList.add('active');
+      dot.textContent = i;
+      lbl.classList.add('active');
+    } else {
+      dot.textContent = i;
+    }
+    if (i < TOTAL_STEPS) {
+      const line = document.getElementById('pline' + i);
+      line.className = 'prog-line' + (i < step ? ' done' : '');
+    }
+  }
+
+  document.getElementById('stepCt').textContent = `Step ${step} of ${TOTAL_STEPS}`;
+  document.getElementById('btnBack').style.visibility = step === 1 ? 'hidden' : 'visible';
+  const nb = document.getElementById('btnNext');
+  nb.textContent = step === TOTAL_STEPS ? '✦ Launch UniCompass Intelligence' : 'Continue →';
+}
+
+function validate(s) {
+  document.querySelectorAll('#fs' + s + ' .err').forEach(e => e.classList.remove('err'));
+  if (s === 1) {
+    // NAME, PHONE, CITY, EMAIL ARE STRICTLY REQUIRED
+    const n = document.getElementById('fullName');
+    const p = document.getElementById('phone');
+    const c = document.getElementById('city');
+    const e = document.getElementById('email');
+    let ok = true;
+    if (!n.value.trim()) { n.classList.add('err'); ok = false; }
+    if (!p.value.trim() || p.value.trim().length < 8) { p.classList.add('err'); ok = false; }
+    if (!c.value.trim()) { c.classList.add('err'); ok = false; }
+    if (!e.value.trim() || !e.value.includes('@')) { e.classList.add('err'); ok = false; }
+    return ok;
+  }
+  if (s === 2) {
+    const fos = document.getElementById('fos');
+    if (!fos.value.trim()) { fos.classList.add('err'); return false; }
+  }
+  if (s === 5) {
+    const u = document.getElementById('dreamUniv');
+    const c = document.getElementById('targetCountry');
+    let ok = true;
+    if (!u.value.trim()) { u.classList.add('err'); ok = false; }
+    if (!c.value) { c.classList.add('err'); ok = false; }
+    return ok;
+  }
+  return true;
+}
+
+function gather(s) {
+  if (s === 1) {
+    profile.fullName    = document.getElementById('fullName').value.trim();
+    profile.phone       = document.getElementById('phone').value.trim();
+    profile.email       = document.getElementById('email').value.trim().toLowerCase();
+    profile.city        = document.getElementById('city').value.trim();
+    profile.country     = document.getElementById('country').value.trim();
+    profile.nationality = document.getElementById('nationality').value.trim();
+  } else if (s === 2) {
+    const r = document.querySelector('input[name="edu"]:checked');
+    profile.educationLevel  = r ? r.value : '';
+    profile.fieldOfStudy    = document.getElementById('fos').value.trim();
+    profile.collegeTier     = document.getElementById('collegeTier').value;
+    profile.cgpa            = document.getElementById('cgpa').value.trim();
+    profile.graduationYear  = document.getElementById('grady').value.trim();
+    profile.academicHonors  = document.getElementById('academicHonors').value.trim();
+  } else if (s === 3) {
+    profile.workExperience  = document.getElementById('workexp').value;
+    profile.currentIndustry = document.getElementById('currentIndustry').value.trim();
+    profile.currentRole     = document.getElementById('currentRole').value.trim();
+    profile.keySkills       = document.getElementById('keySkills').value.trim();
+    profile.targetRole      = document.getElementById('targetRole').value.trim();
+    profile.careerInterest  = profile.targetRole;
+  } else if (s === 4) {
+    profile.degreePreference = document.getElementById('degreePreference').value;
+    profile.examGuidance     = document.getElementById('examGuidance').value;
+    profile.gmatScore        = document.getElementById('gmat').value.trim();
+    profile.catScore         = document.getElementById('cat').value.trim();
+    profile.greScore         = document.getElementById('gre').value.trim();
+    profile.ieltsScore       = document.getElementById('ielts').value.trim();
+  } else if (s === 5) {
+    profile.targetCountry    = document.getElementById('targetCountry').value;
+    profile.dreamUniversity  = document.getElementById('dreamUniv').value.trim();
+    profile.fundingNeed      = document.getElementById('fundingNeed').value;
+    profile.targetIntake     = document.getElementById('targetIntake').value;
+    profile.notes            = document.getElementById('notes').value.trim();
+  }
+}
+
+function nextStep() {
+  if (!validate(step)) return;
+  gather(step);
+  if (step < TOTAL_STEPS) {
+    document.getElementById('fs' + step).classList.remove('visible');
+    step++;
+    document.getElementById('fs' + step).classList.add('visible');
+    syncProgress();
+    document.getElementById('intakeBody').scrollTop = 0;
+  } else {
+    submitProfile();
+  }
+}
+
+function prevStep() {
+  if (step > 1) {
+    document.getElementById('fs' + step).classList.remove('visible');
+    step--;
+    document.getElementById('fs' + step).classList.add('visible');
+    syncProgress();
+  }
+}
+
+// ==========================================
+// BACKEND API CONFIGURATION (RENDER / LOCAL)
+// ==========================================
+// When running locally, it talks to http://127.0.0.1:5050
+// When hosted on Vercel, paste your live Render Web Service URL below:
+const RENDER_BACKEND_URL = 'https://mbawizards-unicompass.onrender.com';
+
+const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+  ? 'http://127.0.0.1:5050'
+  : (window.BACKEND_API_URL || RENDER_BACKEND_URL);
+
+async function submitProfile() {
+  const btn = document.getElementById('btnNext');
+  btn.textContent = 'Saving Profile & Briefing Strategist…';
+  btn.disabled = true;
+
+  try {
+    await fetch(`${API_BASE}/submit-profile`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(profile)
+    });
+  } catch(err) {
+    console.error('Profile submission warning:', err);
+  }
+
+  // Pre-fill query input based on candidate inputs
+  if (profile.degreePreference && profile.degreePreference.includes('Advise Me')) {
+    document.getElementById('userInput').value = `Which course/specialization should I pursue, and should I take GMAT, CAT, or GRE?`;
+  } else if (profile.dreamUniversity) {
+    document.getElementById('userInput').value = `Admissions roadmap & exam strategy for ${profile.dreamUniversity} for ${profile.targetRole || 'career leadership'}`;
+  }
+
+  renderProfileBanner();
+  document.getElementById('intakeOverlay').style.display = 'none';
+
+  // Automatically initiate roadmap generation
+  generateRoadmap();
+}
+
+function openIntakeModal() {
+  document.getElementById('intakeOverlay').style.display = 'flex';
+}
+
+function renderProfileBanner() {
+  const b = document.getElementById('profileBanner');
+  const initials = (profile.fullName || 'MW').split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+  const tags = [
+    profile.phone && `📞 ${profile.phone}`,
+    profile.city && `📍 ${profile.city}`,
+    profile.workExperience && `💼 ${profile.workExperience}`,
+    profile.degreePreference && `🎓 ${profile.degreePreference.split('(')[0].replace('★', '').trim()}`,
+    profile.dreamUniversity && `🏛️ ${profile.dreamUniversity.split(',')[0].trim()}`,
+    profile.gmatScore && `📈 GMAT: ${profile.gmatScore}`,
+    profile.catScore && `🇮🇳 CAT: ${profile.catScore}`
+  ].filter(Boolean);
+
+  b.style.display = 'flex';
+  b.innerHTML = `
+    <div style="display:flex; align-items:center; gap:14px;">
+      <div class="p-avatar">${initials}</div>
+      <div class="p-info">
+        <strong>${profile.fullName || 'Candidate Profile'}</strong>
+        <small>${[profile.email, profile.city, profile.country].filter(Boolean).join(' · ')}</small>
+      </div>
+    </div>
+    <div class="p-tags">
+      ${tags.map(t => `<span class="p-tag">${t}</span>`).join('')}
+      <button class="btn-edit-profile" onclick="openIntakeModal()">Edit Profile</button>
+    </div>
+  `;
+}
+
+function fillChip(text) {
+  document.getElementById('userInput').value = text;
+  document.getElementById('userInput').focus();
+}
+
+async function generateRoadmap() {
+  const inp = document.getElementById('userInput');
+  const query = inp.value.trim();
+  const output = document.getElementById('output');
+  const loader = document.getElementById('loadingWrap');
+  const fg = document.getElementById('featureGrid');
+
+  if (!query) {
+    inp.style.borderColor = '#c8a84b';
+    inp.focus();
+    return;
+  }
+
+  fg.style.display = 'none';
+  output.innerHTML = '';
+  loader.classList.add('active');
+
+  // Cycle loading messages
+  let msgIdx = 0;
+  clearInterval(loadInterval);
+  loadInterval = setInterval(() => {
+    msgIdx = (msgIdx + 1) % loadingMessages.length;
+    document.getElementById('loadingHeadline').textContent = loadingMessages[msgIdx].head;
+    document.getElementById('loadingSubtext').textContent = loadingMessages[msgIdx].sub;
+  }, 2800);
+
+  try {
+    const res = await fetch(`${API_BASE}/generate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query, profile })
+    });
+
+    if (!res.ok) throw new Error('Admissions engine processing error');
+    const data = await res.json();
+
+    const card = document.createElement('div');
+    card.className = 'result-card';
+    card.innerHTML = `
+      <div class="card-topbar">
+        <div class="card-topbar-left">
+          <div class="card-topbar-icon">🏛️</div>
+          <div class="card-topbar-text">
+            <small>MBAWizards UniCompass · Intelligence Report ${profile.fullName ? '· ' + profile.fullName : ''}</small>
+            <strong>${query}</strong>
+          </div>
+        </div>
+        <div class="card-actions">
+          <button class="btn-action" onclick="window.print()">🖨️ Print / PDF</button>
+        </div>
+      </div>
+      <div class="card-body-content">${(data.result || '').trim()}</div>
+      <div class="card-footer">
+        <span class="card-footer-brand">MBAWizards <span>UniCompass</span> · Graduate Admissions Intelligence</span>
+        <button class="btn-action" style="background:var(--gold-dark); color:#fff; border-color:var(--gold-dark);" onclick="window.open('https://www.mbawizards.co.in/contact-us', '_blank')">Consult Lead Strategist ✦</button>
+      </div>
+    `;
+    output.appendChild(card);
+    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  } catch(err) {
+    output.innerHTML = `
+      <div style="background:#fff8f8; border:1px solid #f5d0d0; border-radius:12px; padding:30px; text-align:center;">
+        <h3 style="color:#8b3a3a; margin-bottom:8px; font-family:'Cormorant Garamond',serif; font-size:24px;">Analysis Generation Failed</h3>
+        <p style="color:#7c7567; font-size:14px; margin-bottom:14px;">We were unable to complete the analysis. Please verify your connection or reach out directly to MBAWizards advisors.</p>
+        <span style="font-size:13px; color:#8a6e28;">📧 admissions@mbawizards.com · 📞 +91 99580 41888 · 🌐 <a href="https://www.mbawizards.co.in" target="_blank" style="color:#8a6e28; font-weight:600;">www.mbawizards.co.in</a></span>
+      </div>
+    `;
+  } finally {
+    clearInterval(loadInterval);
+    loader.classList.remove('active');
+  }
+}
+
+document.getElementById('userInput').addEventListener('keypress', e => {
+  if (e.key === 'Enter') generateRoadmap();
+});
+
+syncProgress();
+</script>
+</body>
+</html>

@@ -1793,13 +1793,24 @@ function prevStep() {
   }
 }
 
+// ==========================================
+// BACKEND API CONFIGURATION (RENDER / LOCAL)
+// ==========================================
+// When running locally, it talks to http://127.0.0.1:5050
+// When hosted on Vercel, paste your live Render Web Service URL below:
+const RENDER_BACKEND_URL = 'https://mbawizards-unicompass.onrender.com';
+
+const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+  ? 'http://127.0.0.1:5050'
+  : (window.BACKEND_API_URL || RENDER_BACKEND_URL);
+
 async function submitProfile() {
   const btn = document.getElementById('btnNext');
   btn.textContent = 'Saving Profile & Briefing Strategist…';
   btn.disabled = true;
 
   try {
-    await fetch('/submit-profile', {
+    await fetch(`${API_BASE}/submit-profile`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(profile)
@@ -1887,7 +1898,7 @@ async function generateRoadmap() {
   }, 2800);
 
   try {
-    const res = await fetch('/generate', {
+    const res = await fetch(`${API_BASE}/generate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ query, profile })

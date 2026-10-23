@@ -1,4 +1,5 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, send_from_directory
+from flask_cors import CORS
 from openai import OpenAI
 import os
 import json
@@ -7,12 +8,23 @@ import ssl
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import threading
-from datetime import datetime
+from datetime import datetime, timezone
 from dotenv import load_dotenv
 from supabase import create_client, Client
 
-app = Flask(__name__)
 load_dotenv()
+
+# Determine base and frontend directories
+base_dir = os.path.dirname(os.path.abspath(__file__))
+frontend_dir = os.path.abspath(os.path.join(base_dir, "..", "frontend"))
+if not os.path.exists(frontend_dir):
+    frontend_dir = os.path.abspath(os.path.join(base_dir, "frontend"))
+if not os.path.exists(frontend_dir):
+    frontend_dir = base_dir
+
+static_path = os.path.join(frontend_dir, "static")
+app = Flask(__name__, static_folder=static_path if os.path.exists(static_path) else None, template_folder=frontend_dir)
+CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
 # Initialize OpenAI client
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
@@ -154,10 +166,21 @@ def send_lead_email_async(data: dict):
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    index_path = os.path.join(frontend_dir, "index.html")
+    if os.path.exists(index_path):
+        return send_from_directory(frontend_dir, "index.html")
+    templates_index = os.path.join(base_dir, "templates", "index.html")
+    if os.path.exists(templates_index):
+        return render_template("index.html")
+    return jsonify({"status": "ok", "service": "MBAWizards UniCompass API", "version": "1.0"})
 
 
-@app.route("/submit-profile", methods=["POST"])
+@app.route("/api/health")
+def health_check():
+    return jsonify({"status": "ok", "service": "MBAWizards UniCompass API"})
+
+
+@app.route("/submit-profile", methods=["POST", "OPTIONS"])
 def submit_profile():
     """Receive, store intake form data to Supabase & leads.jsonl, and send admin email via SMTP."""
     data = request.get_json(silent=True) or {}
@@ -283,7 +306,7 @@ def build_profile_context(profile: dict) -> str:
     return "\n".join(lines) if len(lines) > 1 else ""
 
 
-@app.route("/generate", methods=["POST"])
+@app.route("/generate", methods=["POST", "OPTIONS"])
 def generate():
     data = request.get_json(silent=True) or {}
     user_input = (data.get("query") or "").strip()
