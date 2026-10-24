@@ -353,10 +353,22 @@ Candidate Goal/Query: {user_input}
 {profile_context}
 
 ======================================================================
-COMPREHENSIVE INTELLIGENCE MANDATE: 5 CORE PILLARS
+COMPREHENSIVE INTELLIGENCE MANDATE: DIRECT ANSWER + 5 CORE PILLARS
 ======================================================================
 
 You MUST structure the report around these essential pillars:
+
+0. EXECUTIVE STRATEGIC BRIEF: DIRECT ANSWER TO CANDIDATE'S QUERY (TOP PRIORITY):
+   - At the very top, before delving into the pillars, you MUST provide an exhaustive, authoritative, and direct answer to the candidate's exact question: "{user_input}".
+   - Thoroughly deconstruct their specific inquiry (e.g. comparing schools, exam selection, eligibility assessment, career switch, or ROI calculation).
+   - If they ask a comparison question (e.g. School A vs B, GMAT vs CAT, 1-Year vs 2-Year):
+     * Detail concrete head-to-head pros & cons, ROI differences, placement packages, brand perception, and recruiter networks.
+     * Deliver a definitive, clear verdict for their exact profile.
+   - If they ask an eligibility / odds question (e.g. "Can I crack X with Y profile?"):
+     * Give a realistic probability diagnostic (Reach / Competitive / High Odds), highlight the specific gating factors, and outline 3 immediate profile enhancements.
+   - If they ask for career/field guidance:
+     * Outline the top high-yield pathways with industry trends and expected hiring packages ($120k-$220k+ / ₹25L-₹50L+).
+   - Give an explicit "Definitive Strategic Verdict" summarizing the exact recommendation.
 
 1. APPLICANT ASSESSMENT:
    - Education: Evaluate GPA, degree pedigree, and quantitative/analytical readiness.
@@ -432,6 +444,23 @@ STRICT HTML OUTPUT STRUCTURE (Follow exactly):
     <span class="report-tag">MBAWizards UniCompass · Intelligence Dossier</span>
     <h2>Strategic Admissions Roadmap: {user_input}</h2>
     <p class="report-lead">Diagnostic evaluation, course prescription, GMAT/CAT/GRE exam strategy, university matching, and milestone execution blueprint.</p>
+  </div>
+
+  <!-- SECTION 0: DIRECT STRATEGIC ANSWER TO CANDIDATE'S QUERY -->
+  <div class="report-block direct-answer-block" id="block-direct-answer" style="background:#fffdf8; border:1.5px solid #d4af37; border-left:6px solid #d4af37; padding:28px;">
+    <div style="display:inline-flex; align-items:center; gap:6px; background:#d4af37; color:#090d16; font-size:11px; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; padding:4px 10px; border-radius:4px; margin-bottom:12px;">★ Lead Strategist's Direct Advisory · Executive Brief</div>
+    <h3 style="color:#090d16; margin-top:0; margin-bottom:14px; font-size:22px; border-bottom:1px solid rgba(212,175,55,0.3); padding-bottom:10px;">💡 Direct Analysis: {user_input}</h3>
+    
+    <div class="direct-answer-body" style="font-size:15px; line-height:1.8; color:#2d3748;">
+      <!-- Exhaustive 2-4 paragraph deep-dive answering the exact query in detail with numbers, pros & cons, trade-offs, and strategic advice tailored to candidate's background -->
+      <p>[In-depth, direct analysis answering their exact question with authoritative precision, referencing their profile]</p>
+      <p>[Specific comparisons, salary/ROI expectations, recruiter preferences, or feasibility trade-offs relevant to this question]</p>
+    </div>
+
+    <div class="direct-verdict-card" style="margin-top:18px; padding:16px 20px; background:#ffffff; border:1px solid #e2e8f0; border-left:4px solid #090d16; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.04);">
+      <strong style="color:#090d16; font-size:14px; display:block; margin-bottom:4px;">🎯 Definitive Strategic Verdict:</strong>
+      <p style="margin:0; font-size:14px; color:#4a5568; line-height:1.6;">[Unambiguous, decisive 1-2 sentence recommendation on what the candidate must do next]</p>
+    </div>
   </div>
 
   <!-- SECTION 1: APPLICANT PROFILE ASSESSMENT -->
