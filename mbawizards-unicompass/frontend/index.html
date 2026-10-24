@@ -1815,7 +1815,11 @@ function getBackendBase() {
   return (window.BACKEND_API_URL || 'https://mbawizards-unicompass.onrender.com').replace(/\/+$/, '');
 }
 
-const API_BASE = getBackendBase();
+function getApiEndpoint(endpoint) {
+  const base = getBackendBase();
+  const cleanEndpoint = endpoint.startsWith('/') ? endpoint : '/' + endpoint;
+  return `${base}${cleanEndpoint}`;
+}
 
 async function submitProfile() {
   const btn = document.getElementById('btnNext');
@@ -1823,7 +1827,7 @@ async function submitProfile() {
   btn.disabled = true;
 
   try {
-    await fetch(`${API_BASE}/submit-profile`, {
+    await fetch(getApiEndpoint('/submit-profile'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(profile)
@@ -1911,7 +1915,7 @@ async function generateRoadmap() {
   }, 2800);
 
   try {
-    const res = await fetch(`${API_BASE}/generate`, {
+    const res = await fetch(getApiEndpoint('/generate'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ query, profile })

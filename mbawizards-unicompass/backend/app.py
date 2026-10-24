@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template, send_from_directory
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 from openai import OpenAI
 import os
@@ -14,17 +14,17 @@ from supabase import create_client, Client
 
 load_dotenv()
 
-# Determine base and frontend directories
-base_dir = os.path.dirname(os.path.abspath(__file__))
-frontend_dir = os.path.abspath(os.path.join(base_dir, "..", "frontend"))
-if not os.path.exists(frontend_dir):
-    frontend_dir = os.path.abspath(os.path.join(base_dir, "frontend"))
-if not os.path.exists(frontend_dir):
-    frontend_dir = base_dir
-
-static_path = os.path.join(frontend_dir, "static")
-app = Flask(__name__, static_folder=static_path if os.path.exists(static_path) else None, template_folder=frontend_dir)
+# Pure backend API - no HTML or static assets served
+app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
+
+
+@app.after_request
+def add_cors_headers(response):
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+    return response
 
 # Initialize OpenAI client
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
@@ -166,22 +166,35 @@ def send_lead_email_async(data: dict):
 
 @app.route("/")
 def home():
-    index_path = os.path.join(frontend_dir, "index.html")
-    if os.path.exists(index_path):
-        return send_from_directory(frontend_dir, "index.html")
-    templates_index = os.path.join(base_dir, "templates", "index.html")
-    if os.path.exists(templates_index):
-        return render_template("index.html")
-    return jsonify({"status": "ok", "service": "MBAWizards UniCompass API", "version": "1.0"})
+    """Pure backend root endpoint - confirms API status."""
+    return jsonify({
+        "status": "online",
+        "service": "MBAWizards UniCompass Backend API",
+        "version": "1.0.0",
+        "message": "MBAWizards pure backend API is operational on Render. Frontend client is hosted on Vercel.",
+        "endpoints": {
+            "health": "/api/health",
+            "submit_profile": "POST /submit-profile",
+            "generate": "POST /generate"
+        }
+    })
 
 
-@app.route("/api/health")
+@app.route("/api/health", methods=["GET"])
 def health_check():
-    return jsonify({"status": "ok", "service": "MBAWizards UniCompass API"})
+    """Health check endpoint for monitoring."""
+    return jsonify({
+        "status": "ok",
+        "service": "MBAWizards UniCompass API",
+        "timestamp": datetime.now(timezone.utc).isoformat()
+    })
 
 
 @app.route("/submit-profile", methods=["POST", "OPTIONS"])
 def submit_profile():
+    if request.method == "OPTIONS":
+        return jsonify({"status": "ok"}), 200
+
     """Receive, store intake form data to Supabase & leads.jsonl, and send admin email via SMTP."""
     data = request.get_json(silent=True) or {}
 
@@ -308,6 +321,9 @@ def build_profile_context(profile: dict) -> str:
 
 @app.route("/generate", methods=["POST", "OPTIONS"])
 def generate():
+    if request.method == "OPTIONS":
+        return jsonify({"status": "ok"}), 200
+
     data = request.get_json(silent=True) or {}
     user_input = (data.get("query") or "").strip()
     profile = data.get("profile") or {}
@@ -737,6 +753,15 @@ RULES:
             </div>
             """
         })
+
+
+@app.errorhandler(404)
+def not_found(e):
+    return jsonify({
+        "error": "Not Found",
+        "message": "MBAWizards UniCompass Backend API - endpoint does not exist. Frontend client is hosted on Vercel.",
+        "valid_endpoints": ["/", "/api/health", "/submit-profile", "/generate"]
+    }), 404
 
 
 if __name__ == "__main__":
