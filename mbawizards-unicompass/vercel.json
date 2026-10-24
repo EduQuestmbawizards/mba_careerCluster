@@ -1,5 +1,5 @@
 {
-  "buildCommand": "node frontend/build.js",
-  "outputDirectory": "frontend",
+  "buildCommand": "cd frontend && node build.js",
+  "outputDirectory": "frontend/public",
   "cleanUrls": true
 }
