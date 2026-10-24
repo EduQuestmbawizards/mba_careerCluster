@@ -1,4 +1,4 @@
-# MBAWizards UniCompass · Graduate Admissions & Career Intelligence Platform
+# MBAWizards · Graduate Admissions & Career Intelligence Platform
 
 A dedicated **Graduate Admissions & Career Intelligence Platform** tailored for MBA & Master's aspirants, powered by OpenAI GPT-4o, Supabase PostgreSQL persistence, and official MBAWizards branding.
 
@@ -43,7 +43,7 @@ carrerCluster/
 
 ## 🛠️ Local Development
 
-1. Navigate to the UniCompass platform directory:
+1. Navigate to the platform directory:
    ```bash
    cd mbawizards-unicompass
    ```

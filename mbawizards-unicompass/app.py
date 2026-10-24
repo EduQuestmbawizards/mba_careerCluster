@@ -37,7 +37,7 @@ supabase: Client = None
 if supabase_url and supabase_key and "your_supabase" not in supabase_url:
     try:
         supabase = create_client(supabase_url, supabase_key)
-        print("MBAWizards UniCompass: Supabase connected successfully!")
+        print("MBAWizards Graduate Admissions & Career Intelligence Platform: Supabase connected successfully!")
     except Exception as e:
         print("Failed to initialize Supabase client:", e)
 
@@ -111,7 +111,7 @@ def send_lead_email_async(data: dict):
         <body>
           <div class="container">
             <div class="header">
-              <h2>MBAWizards UniCompass · New Lead Notification</h2>
+              <h2>MBAWizards · Graduate Admissions & Career Intelligence Platform · New Lead Notification</h2>
               <p>Subject Tag: <strong>{subject}</strong></p>
             </div>
             <div class="content">
@@ -138,7 +138,7 @@ def send_lead_email_async(data: dict):
               </table>
             </div>
             <div class="footer">
-              This automated lead was generated from MBAWizards UniCompass Platform for admin: {admin_email}
+              This automated lead was generated from MBAWizards Graduate Admissions & Career Intelligence Platform for admin: {admin_email}
             </div>
           </div>
         </body>
@@ -169,7 +169,7 @@ def home():
     """Pure backend root endpoint - confirms API status."""
     return jsonify({
         "status": "online",
-        "service": "MBAWizards UniCompass Backend API",
+        "service": "MBAWizards Graduate Admissions & Career Intelligence Platform Backend API",
         "version": "1.0.0",
         "message": "MBAWizards pure backend API is operational on Render. Frontend client is hosted on Vercel.",
         "endpoints": {
@@ -185,7 +185,7 @@ def health_check():
     """Health check endpoint for monitoring."""
     return jsonify({
         "status": "ok",
-        "service": "MBAWizards UniCompass API",
+        "service": "MBAWizards Graduate Admissions & Career Intelligence Platform API",
         "timestamp": datetime.now(timezone.utc).isoformat()
     })
 
@@ -422,7 +422,7 @@ You MUST structure the report around these essential pillars:
 ======================================================================
 BRANDING & RESOURCE LINKS INTEGRATION
 ======================================================================
-- Brand Voice: MBAWizards UniCompass (Official Website: https://www.mbawizards.co.in/).
+- Brand Voice: MBAWizards Graduate Admissions & Career Intelligence Platform (Official Website: https://www.mbawizards.co.in/).
 - You MUST embed the official MBAWizards landing page links inside the HTML buttons/anchors as specified:
   * GMAT Prep: <a href="https://www.mbawizards.co.in/gmat-coaching" target="_blank" class="resource-link-btn">Explore MBAWizards GMAT Focus Coaching ↗</a>
   * CAT Prep: <a href="https://www.mbawizards.co.in/cat" target="_blank" class="resource-link-btn">Explore MBAWizards CAT 99+ %ile Mentorship ↗</a>
@@ -441,7 +441,7 @@ STRICT HTML OUTPUT STRUCTURE (Follow exactly):
 <div class="roadmap-container">
 
   <div class="report-header-banner">
-    <span class="report-tag">MBAWizards UniCompass · Intelligence Dossier</span>
+    <span class="report-tag">MBAWizards · Graduate Admissions & Career Intelligence Platform · Intelligence Dossier</span>
     <h2>Strategic Admissions Roadmap: {user_input}</h2>
     <p class="report-lead">Diagnostic evaluation, course prescription, GMAT/CAT/GRE exam strategy, university matching, and milestone execution blueprint.</p>
   </div>
@@ -788,12 +788,12 @@ RULES:
 def not_found(e):
     return jsonify({
         "error": "Not Found",
-        "message": "MBAWizards UniCompass Backend API - endpoint does not exist. Frontend client is hosted on Vercel.",
+        "message": "MBAWizards Graduate Admissions & Career Intelligence Platform Backend API - endpoint does not exist. Frontend client is hosted on Vercel.",
         "valid_endpoints": ["/", "/api/health", "/submit-profile", "/generate"]
     }), 404
 
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5050))
-    print(f">> MBAWizards UniCompass running on http://127.0.0.1:{port}")
+    print(f">> MBAWizards Graduate Admissions & Career Intelligence Platform running on http://127.0.0.1:{port}")
     app.run(host="0.0.0.0", port=port, debug=True)

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MBAWizards UniCompass — Graduate Admissions & Career Intelligence</title>
+<title>MBAWizards — Graduate Admissions & Career Intelligence Platform</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -1329,7 +1329,7 @@
       <a href="https://www.mbawizards.co.in/" target="_blank">
         <img src="/static/images/mbawizards-logo.svg" alt="MBAWizards Logo" class="intake-logo-preview" onerror="this.src='/static/images/mbawizards-logo.png'">
       </a>
-      <span class="badge">✦ MBAWizards UniCompass Intelligence ✦</span>
+      <span class="badge">✦ Graduate Admissions & Career Intelligence Platform ✦</span>
       <h2>Graduate Admissions Intake Profile</h2>
       <p>Configure your candidate parameters so our AI engine can architect your admissions strategy.</p>
     </div>
@@ -1586,7 +1586,7 @@
         <img src="/static/images/mbawizards-logo.svg" alt="MBAWizards Logo" class="brand-logo-img" onerror="this.src='/static/images/mbawizards-logo.png'">
       </a>
     </div>
-    <div class="eyebrow"><span class="sparkle">✦</span> MBAWizards UniCompass <span class="sparkle">✦</span></div>
+    <div class="eyebrow"><span class="sparkle">✦</span> MBAWizards · Graduate Admissions &amp; Career Intelligence Platform <span class="sparkle">✦</span></div>
     <h1>Graduate Admissions &amp;<br><em>Career Intelligence Platform</em></h1>
     <p class="subtitle">Personalized course recommendations, GMAT vs CAT vs GRE diagnostic decisioning, and elite business school roadmaps engineered for MBA and Master's candidates.</p>
 
@@ -1699,7 +1699,7 @@ function syncProgress() {
   document.getElementById('stepCt').textContent = `Step ${step} of ${TOTAL_STEPS}`;
   document.getElementById('btnBack').style.visibility = step === 1 ? 'hidden' : 'visible';
   const nb = document.getElementById('btnNext');
-  nb.textContent = step === TOTAL_STEPS ? '✦ Launch UniCompass Intelligence' : 'Continue →';
+  nb.textContent = step === TOTAL_STEPS ? '✦ Launch Career Intelligence Platform' : 'Continue →';
 }
 
 function validate(s) {
@@ -1931,7 +1931,7 @@ async function generateRoadmap() {
         <div class="card-topbar-left">
           <div class="card-topbar-icon">🏛️</div>
           <div class="card-topbar-text">
-            <small>MBAWizards UniCompass · Intelligence Report ${profile.fullName ? '· ' + profile.fullName : ''}</small>
+            <small>MBAWizards · Graduate Admissions & Career Intelligence Platform ${profile.fullName ? '· ' + profile.fullName : ''}</small>
             <strong>${query}</strong>
           </div>
         </div>
@@ -1941,7 +1941,7 @@ async function generateRoadmap() {
       </div>
       <div class="card-body-content">${(data.result || '').trim()}</div>
       <div class="card-footer">
-        <span class="card-footer-brand">MBAWizards <span>UniCompass</span> · Graduate Admissions Intelligence</span>
+        <span class="card-footer-brand">MBAWizards · <span>Graduate Admissions & Career Intelligence Platform</span></span>
         <button class="btn-action" style="background:var(--gold-dark); color:#fff; border-color:var(--gold-dark);" onclick="window.open('https://www.mbawizards.co.in/contact-us', '_blank')">Consult Lead Strategist ✦</button>
       </div>
     `;
